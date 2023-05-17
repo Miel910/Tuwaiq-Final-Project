@@ -15,11 +15,12 @@ verifyAccount(Request req) async {
           email: body['email'],
         );
 
-    return ResponseMsg().successResponse(msg: "Your Email has been confirmed");
+    return ResponseMsg()
+        .successResponse(msg: "Your account has been confirmed successfully!");
   } catch (error) {
     print(error);
 
     return ResponseMsg()
-        .errorResponse(msg: "Your Email has not  been comfired");
+        .errorResponse(msg: "Something wrong happend, please try again.");
   }
 }

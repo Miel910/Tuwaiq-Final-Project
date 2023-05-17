@@ -9,16 +9,17 @@ import '../Supabase/supabase.dart';
 createAccount(Request req) async {
   try {
     final body = json.decode(await req.readAsString());
-    print(body);
+    final supabaseVariable = Supabase().supabase;
 
-    final supabaseVariable = Supabase().supabase.auth;
-    UserResponse userInfo = await supabaseVariable.admin.createUser(
+    UserResponse userInfo = await supabaseVariable.auth.admin.createUser(
       AdminUserAttributes(email: body['email'], password: body['password']),
     );
 
-    await supabaseVariable.signInWithOtp(email: body['email']);
+    await supabaseVariable.auth.signInWithOtp(email: body['email']);
 
-    await Supabase().supabase.from("users").insert({"email": body['email']});
+    await supabaseVariable
+        .from('users')
+        .insert({'email': body['email'], 'id_auth': userInfo.user?.id});
 
     return ResponseMsg()
         .successResponse(msg: "Your account has been created succesfully!");
@@ -26,6 +27,6 @@ createAccount(Request req) async {
     print(error);
 
     return ResponseMsg()
-        .errorResponse(msg: "Please enter your email and password.");
+        .errorResponse(msg: "Something wrong happend, please try again.");
   }
 }

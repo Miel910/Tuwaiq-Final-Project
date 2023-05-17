@@ -1,10 +1,10 @@
 import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
 
-import '../Responses/createAccount.dart';
-import '../Responses/verifyAccount.dart';
-import '../Responses/resetPassword.dart';
-import '../Responses/changeEmail.dart';
+import '../Responses/CreateAccount.dart';
+import '../Responses/VerifyAccount.dart';
+import '../Responses/ResetPassword.dart';
+import '../Responses/ChangeEmail.dart';
 
 class AuthRoute {
   Handler get handler {
